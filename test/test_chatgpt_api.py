@@ -19,16 +19,20 @@ def get_completion(prompt, model="gpt-4o-mini"):
 
 
 text = f"""
-d1
+h5
 """
 prompt = f"""
-simplify the text into one chess move notation that stockfish can read. Remember remove the "-" string between the positions.
+Simplify the text into one chess move notation that stockfish can read, as starting square ending square.
 
-For example, if I say "move my knight from g1 to f3, the answer is g1f3"
+Remember remove the "-" string between the positions.
 
-If I say Nf3, you need to figure out the starting square of this piece and combine it into the format such as g1f3. 
+For example, if I say "move my knight from g1 to f3, the answer format is g1f3"
 
-If the starting square is ambigous or unclear, you need to ask me what is the starting position of this piece.
+If the instruction only contains the end position, such as Nf3, in the case above, you need to ask the player to clarify the starting position.
+
+For example, you could say, do you mean the knight at g1 to f3?
+
+The instruction is
 ```{text}```
 """
 response = get_completion(prompt)
