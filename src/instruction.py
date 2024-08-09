@@ -8,8 +8,8 @@ OPENAI_API_KEY  = os.getenv('OPENAI_API_KEY')
 
 client = OpenAI()
 
-def user_input():
-    user_input_text = input("Please input your move\n")
+def user_input(text = "Please input your move\n"):
+    user_input_text = input(text)
     return user_input_text 
 
 def completion_create(client = OpenAI(), model = "gpt-4o-mini", messages = []):
@@ -34,7 +34,7 @@ def message_history_append(message_history, message):
     message_history.append(message)
     return message_history
 
-def message_history_init(prompt):
+def input_move(prompt):
     message_history = [{"role": "user", 
                     "content": """
                 Instruction:
@@ -52,8 +52,17 @@ def message_history_init(prompt):
                 ]
     return message_history
 
-promt = user_input()
-message_history = message_history_init(promt)
-completion = completion_create(messages = message_history)
+def stockfish_move(prompt):
+    message_history = [{"role": "user", 
+                    "content": """
+                                the text is a chess move innstruction, turn it into something sounds  more natural to a human"
+
+                                The text is below {text}
+                                """.format(text = prompt)}
+                ]
+    return message_history
+
+stockfish_move = stockfish_move("The move from computer is Piece.WHITE_PAWN from d2 to d4.")
+completion = completion_create(messages=stockfish_move)
 reply = reply_create(completion)
 print(reply)
