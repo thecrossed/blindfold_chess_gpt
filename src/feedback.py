@@ -34,25 +34,19 @@ def message_history_append(message_history, message):
     message_history.append(message)
     return message_history
 
-def rule_setup(prompt):
-    first_message = {"role": "user", 
+
+def stockfish_move(prompt):
+    message_history = [{"role": "user", 
                     "content": """
-                Instruction:
-                I will give you a piece of text and simplify it as a chess notation as starting square plus ending square
-                For example, if I say "I move my knight from g1 to h3", and you should give me the answer in the quote marks "g1h3".
-                Rule 1:
-                Remember remove anything but the notation e.g. "g1h3" in the example above.
-                Rule 2:
-                If my text does not clarify either starting position or the end position, you need to ask me for clarification.
-                Rule 3:
-                If my text contain wrong chess notation, you need to ask me to correct it.
+                                the text is a chess move innstruction, turn it into something sounds  more natural to a human"
 
-                The text is below {text}
-                """.format(text = prompt)}
-                
-    return first_message
+                                The text is below {text}
+                                """.format(text = prompt)}
+                ]
+    return message_history
 
 
-
-
-
+stockfish_move = stockfish_move("The move from computer is Piece.WHITE_PAWN from d2 to d4.")
+completion = completion_create(messages=stockfish_move)
+reply = reply_create(completion)
+print(reply)

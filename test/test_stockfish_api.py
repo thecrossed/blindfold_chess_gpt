@@ -26,16 +26,6 @@ def make_best_move(fen):
     return best_move, piece
 
 
-# get the piece on certain positions
-e1_sqaure_piece = stockfish.get_what_is_on_square("e1") # returns Stockfish.Piece.WHITE_KING
-#print(e1_sqaure_piece)
-
-# set position
-#stockfish.set_position(["e2e4", "e7e6"])
-e6_sqaure_piece = stockfish.get_what_is_on_square("e6") # returns Stockfish.Piece.WHITE_KING
-#print(e6_sqaure_piece)
-
-
 best_move, piece = make_best_move(start_fen)
 
 def move_instruction(best_move, piece):
@@ -45,3 +35,17 @@ def move_instruction(best_move, piece):
     return text
 
 print(move_instruction(best_move, piece))
+
+
+# get the piece on certain positions
+e1_sqaure_piece = stockfish.get_what_is_on_square("e1") # returns Stockfish.Piece.WHITE_KING
+#print(e1_sqaure_piece)
+
+# set position
+#stockfish.set_position(["e2e4", "e7e6"])
+e6_sqaure_piece = stockfish.get_what_is_on_square("e6") # returns Stockfish.Piece.WHITE_KING
+#print(e6_sqaure_piece)
+
+# illegal move
+# Cannot make move: e2e5
+# stockfish.set_position(["e2e5"])
