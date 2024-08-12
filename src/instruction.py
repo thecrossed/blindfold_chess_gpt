@@ -67,7 +67,7 @@ while len(move_for_stockfish) != 4:
     creation = completion_create(messages= message_history)
     move_for_stockfish = reply_create(creation)
     print(move_for_stockfish)
-    print(len(move_for_stockfish))
+    #print(len(move_for_stockfish))
 
 
 
