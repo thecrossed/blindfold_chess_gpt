@@ -1,6 +1,8 @@
 #from openai import OpenAI
 import os
 from openai import OpenAI
+import audio as a
+
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv()) # read local .env file
 
@@ -44,30 +46,36 @@ def message_create(role , content):
     return message
 
 def message_history_append(message_history, message):
-    message_history = message_history
     message_history.append(message)
     return message_history
 
-message_history = []
+msg_history = []
 
 #move_input = user_input()        
 #print(move_input)   
 
 #message = message_create('user', move_input)
 
-message_history = message_history_append(message_history, init_message)
+message_history = message_history_append(msg_history, init_message)
 
-move_for_stockfish = ""
-
-while len(move_for_stockfish) != 4:
-    move_input = user_input()
-    #print(move_input) 
-    message = message_create('user', move_for_stockfish + move_input)
-    message_history = message_history_append(message_history, message)
-    creation = completion_create(messages= message_history)
-    move_for_stockfish = reply_create(creation)
-    print(move_for_stockfish)
-    #print(len(move_for_stockfish))
+def move_instruction(input):
+    move_for_stockfish = ""
+    move_input = input
+    while len(move_for_stockfish) != 4:
+        correct_text = ""
+        #print(move_input) 
+        message = message_create('user', move_for_stockfish + move_input)
+        history = message_history_append(message_history, message)
+        creation = completion_create(messages= history)
+        move_for_stockfish = reply_create(creation)
+        a.text_to_audio(move_for_stockfish, "/Users/jasminezhu/blindfold_chess_gpt/resource/reply.m4a")
+        a.play_audio("/Users/jasminezhu/blindfold_chess_gpt/resource/reply.m4a")
+        print(move_for_stockfish)
+        a.record("/Users/jasminezhu/blindfold_chess_gpt/resource/my_move_correct.m4a")
+        correct_text = a.audio_to_text("/Users/jasminezhu/blindfold_chess_gpt/resource/my_move_correct.m4a")
+        move_input = correct_text
+    return  move_for_stockfish
+        #print(len(move_for_stockfish))
 
 
 

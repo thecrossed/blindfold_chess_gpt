@@ -3,24 +3,25 @@ import sys
 
 import pyaudio
 
-CHUNK = 1024
-FORMAT = pyaudio.paInt16
-CHANNELS = 1 if sys.platform == 'darwin' else 2
-RATE = 44100
-RECORD_SECONDS = 5
+def record(output_file):
+    CHUNK = 1024
+    FORMAT = pyaudio.paInt16
+    CHANNELS = 1 if sys.platform == 'darwin' else 2
+    RATE = 44100
+    RECORD_SECONDS = 5
 
-with wave.open('test/record.m4a', 'wb') as wf:
-    p = pyaudio.PyAudio()
-    wf.setnchannels(CHANNELS)
-    wf.setsampwidth(p.get_sample_size(FORMAT))
-    wf.setframerate(RATE)
+    with wave.open(output_file, 'wb') as wf:
+        p = pyaudio.PyAudio()
+        wf.setnchannels(CHANNELS)
+        wf.setsampwidth(p.get_sample_size(FORMAT))
+        wf.setframerate(RATE)
 
-    stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True)
+        stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True)
 
-    print('Recording...')
-    for _ in range(0, RATE // CHUNK * RECORD_SECONDS):
-        wf.writeframes(stream.read(CHUNK))
-    print('Done')
+        print('Recording...')
+        for _ in range(0, RATE // CHUNK * RECORD_SECONDS):
+            wf.writeframes(stream.read(CHUNK))
+        print('Done')
 
-    stream.close()
-    p.terminate()
+        stream.close()
+        p.terminate()

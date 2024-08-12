@@ -45,8 +45,9 @@ def stockfish_move(prompt):
                 ]
     return message_history
 
-
+"""
 stockfish_move = stockfish_move("The move from computer is Piece.WHITE_PAWN from d2 to d4.")
 completion = completion_create(messages=stockfish_move)
 reply = reply_create(completion)
 print(reply)
+"""
