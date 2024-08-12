@@ -13,7 +13,7 @@ def wait_for_input():
     input()
     pygame.mixer.music.stop()
 
-music_thread = threading.Thread(target= play_music, args=("/Users/jasminezhu/blindfold_chess_gpt/test/speech.mp3",))
+music_thread = threading.Thread(target= play_music, args=("test/speech.mp3",))
 input_thread = threading.Thread(target = wait_for_input)
 
 music_thread.start()
