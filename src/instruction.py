@@ -2,6 +2,7 @@
 import os
 from openai import OpenAI
 import audio as a
+import time
 
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv()) # read local .env file
@@ -70,6 +71,7 @@ def move_instruction(input):
         move_for_stockfish = reply_create(creation)
         a.text_to_audio(move_for_stockfish, "/Users/jasminezhu/blindfold_chess_gpt/resource/reply.m4a")
         a.play_audio("/Users/jasminezhu/blindfold_chess_gpt/resource/reply.m4a")
+        time.sleep(3)
         print(move_for_stockfish)
         a.record("/Users/jasminezhu/blindfold_chess_gpt/resource/my_move_correct.m4a")
         correct_text = a.audio_to_text("/Users/jasminezhu/blindfold_chess_gpt/resource/my_move_correct.m4a")
